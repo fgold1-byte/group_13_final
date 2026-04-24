@@ -78,8 +78,12 @@ class Player:
     
     Author:
     """
-    def __init__():
-        pass
+    def __init__(self, name: str, chips: int):
+        self.name = name
+        self.chips = chips
+        self.hand = []
+        self.next_round_stats = {}
+        
     def place_bet():
         """
         deducts from the players chip balance, applying any club discount
