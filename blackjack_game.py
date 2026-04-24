@@ -8,8 +8,7 @@ class Card:
         rank(str): Thr rank of the card, such as 2-10, Jack, Queen, King, or Ace
         
     Author: Goldheim & Wazhuddin    
-    """
-        
+    """  
 class Deck:
     """
     Represents a standard deck of 52 playing cards
@@ -39,6 +38,7 @@ class Hand:
     """
     def __init__(self):
         self.cards = []
+        self.total = 0
     
     def add_card(self, card):
         """Adds a card to the hand
@@ -52,11 +52,22 @@ class Hand:
         """
         Calculate the total value of the hand, making sure ace is adjusted from 11 to 1 as needed
         
-        Returns: int: The best blackjack total for the han.
+        Returns: int: The best blackjack total for the hand.
         
-        Author:
+        Author: 
         
         """
+        aces = 0
+        
+        for card in self.cards:
+            self.total += card.value
+        #needs aces count pending on names used in card class 
+        while self.total > 21 and aces > 0:
+            self.total -= 10
+            aces -= 1
+            
+        return self.total
+
 class Player:
     """
     Stores the player's name, chips, hand, and next-round stats
