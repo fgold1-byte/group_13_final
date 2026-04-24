@@ -76,7 +76,7 @@ class Player:
     name(Str): the players name
     chips(int): starting number of chips
     
-    Author:
+    Author: Isha 
     """
     def __init__(self, name: str, chips: int):
         self.name = name
