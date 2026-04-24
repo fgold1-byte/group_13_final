@@ -76,13 +76,20 @@ class Player:
     name(Str): the players name
     chips(int): starting number of chips
     
-    Author:
+    Author: Isha 
     """
     def __init__(self, name: str, chips: int):
         self.name = name
         self.chips = chips
         self.hand = []
         self.next_round_stats = {}
+        
+        """
+        test
+        1
+        2
+        3
+        """
         
     def place_bet():
         """
