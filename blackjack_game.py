@@ -86,6 +86,9 @@ class Player:
         
         """
         test
+        1
+        2
+        3
         """
         
     def place_bet():
