@@ -43,7 +43,7 @@ class Hand:
     def add_card(self, card):
         """Adds a card to the hand
         
-        args: the card to add
+        args:  the card to add
         
         author: Wazihuddin
         
@@ -54,14 +54,14 @@ class Hand:
         
         Returns: int: The best blackjack total for the hand.
         
-        Author: 
+        Author: Stanton
         
         """
         aces = 0
         
         for card in self.cards:
             self.total += card.value
-        #needs aces count pending on names used in card class 
+        # needs aces count pending on names used in card class 
         while self.total > 21 and aces > 0:
             self.total -= 10
             aces -= 1
@@ -160,9 +160,11 @@ def blackjack_check():
     
     Returns: bool: true if the hand has two cards that add up to 21, false otherwise
     
-    author:
+    author: Stanton
     """
-    pass
+    total = Hand.get_total()
+    
+    return True if total == 21 and len(Hand.cards) == 2 else False
 
 def player_turn():
     """
