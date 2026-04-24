@@ -84,6 +84,10 @@ class Player:
         self.hand = []
         self.next_round_stats = {}
         
+        """
+        test
+        """
+        
     def place_bet():
         """
         deducts from the players chip balance, applying any club discount
