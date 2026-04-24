@@ -1,5 +1,23 @@
 import random
+
+suits = []
+ranks = []
+
+
+
 class Card:
+    
+    face_cards = ["Jack", "Queen", "King", "Ace"]
+    
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+        
+        pass
+    
+    def card_value(self):
+        return int(self.rank)
+        pass
     """
     Representing a singple playing card
     
@@ -9,6 +27,8 @@ class Card:
         
     Author: Goldheim & Wazhuddin    
     """  
+    
+    
 class Deck:
     """
     Represents a standard deck of 52 playing cards
