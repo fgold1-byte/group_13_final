@@ -1,9 +1,10 @@
 import random
+import pandas
 
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
 ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
 
-starting_coins = 100
+starting_chips = 100
 
 
 
@@ -168,6 +169,9 @@ class Player:
         
         author: 
         """
+        
+    def pandas_graph():
+        s = pd.series()
 class Bet:
     """
     Store the current rounds wager and determind payout outcomes.
