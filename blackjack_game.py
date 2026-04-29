@@ -1,7 +1,9 @@
 import random
 
-suits = []
-ranks = []
+suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
+ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+
+starting_coins = 100
 
 
 
@@ -13,11 +15,19 @@ class Card:
         self.suit = suit
         self.rank = rank
         
-        pass
+    
     
     def card_value(self):
-        return int(self.rank)
-        pass
+        if self.rank in self.face_cards:
+            return 10
+        elif self.rank == "Ace":
+            return 11
+        else:
+            return int(self.rank)
+        
+    def __str__(self):
+        return (f"{self.rank} of {self.suit}")
+        
     """
     Representing a singple playing card
     
@@ -35,6 +45,9 @@ class Deck:
     
     Author: Goldheim & Wazihuddin
     """
+    def __init__(self):
+        self.cards = [Card (suit, rank) for suit in suits for rank in ranks]
+        
     
     def shuffle(self):
         """
@@ -46,8 +59,21 @@ class Deck:
         random.shuffle(self.cards)
         
     def deal(self):
-        pass
-    pass
+        """
+        Deal top card from deck, raise error if cards are out
+        
+        Returns:
+            top card
+        Raises:
+            ValueError(str)
+            
+        Author: Goldheim
+        """
+        if not self.cards:
+            raise ValueError("Out of cards, start new game")
+        return self.cards.pop
+    
+    
 
 class Hand:
     """
