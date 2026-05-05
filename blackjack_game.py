@@ -19,12 +19,9 @@ class Card:
     
     
     def card_value(self):
-        if self.rank in self.face_cards:
-            return 10
-        elif self.rank == "Ace":
-            return 11
-        else:
-            return int(self.rank)
+        rank_values = {"Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight": 8, "Nine": 9, "Ten": 10, "Jack": 10, "Queen": 10, "King": 10, "Ace": 11}
+        
+        return rank_values[self.rank]
         
     def __str__(self):
         return (f"{self.rank} of {self.suit}")
@@ -72,7 +69,7 @@ class Deck:
         """
         if not self.cards:
             raise ValueError("Out of cards, start new game")
-        return self.cards.pop
+        return self.cards.pop()
     
     
 
@@ -95,6 +92,7 @@ class Hand:
         author: Wazihuddin
         
         """
+        self.cards.append(card)
     def get_total(self):
         """
         Calculate the total value of the hand, making sure ace is adjusted from 11 to 1 as needed
@@ -107,7 +105,7 @@ class Hand:
         aces = 0
         
         for card in self.cards:
-            self.total += card.value
+            self.total += card.card_value()
         # needs aces count pending on names used in card class 
         while self.total > 21 and aces > 0:
             self.total -= 10
