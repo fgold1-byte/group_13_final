@@ -178,12 +178,14 @@ class Bet:
     
     args: amount(float): the amount wagered this round
     
-    author: 
+    author: Wazihuddin
     """
-    def __init__():
-        pass
+    def __init__(self, amount):
+        self.amount = amount
+        self.result_status = "pending"
+        self.payout = 0
     
-    def resolve_outcome():
+    def resolve_outcome(self, player_hand, dealer_hand):
         """
         Compute the round payout using blackjack rules and first-card suit power
         
@@ -197,11 +199,52 @@ class Bet:
         
         args: player_hand & dealer_hand
         
-        author: 
+        author: Wazihuddin
         """
         
-        pass
-
+        player_total = player_hand.get_total()
+        dealer_total = dealer_hand.get_total()
+        power_suit = player_hand.get_power_suit()
+        
+        #If player bust
+        if player_total > 21:
+            self.result_status = "Loss"
+            print(f"You busted with {player_total}! 💥")
+            self.payout = 0
+            
+            if power_suit == "Hearts":
+                self.payout = self.amount * 0.25
+                print(f"Hearts power! You get back ${self.payout:.2f}")
+                
+                
+        #if player wins
+        elif dealer_total > 21 or player_total > dealer_total:
+            self.result_status = "Win"
+            self.payout = self.amount * 2
+            print(f"You win! 🎉 Your total: {player_total} vs Dealer: {dealer_total}")
+            
+            if power_suit == "Diamonds":
+                self.payout = self.amount * 3
+                print(f"Diamonds power! Your payout is boosted to ${self.payout:.2f}")
+                
+        #push
+        elif player_total == dealer_total:
+            self.result_status = "Push"
+            self.payout = self.amount
+            print(f"Push! 🤝 You and the dealer both have {player_total}. Your bet is returned.")
+            
+        #player loses
+        else:
+            self.result_status = "Loss"
+            self.payout = 0
+            print(f"You lose. 😞 Your total: {player_total} vs Dealer: {dealer_total}")
+            
+            if power_suit == "Hearts":
+                self.payout = self.amount * 0.25
+                print(f"Hearts power! You get back ${self.payout:.2f}")
+                
+        return self.payout
+        
 def blackjack_check():
     """
     check weather a hand is a blackjack
