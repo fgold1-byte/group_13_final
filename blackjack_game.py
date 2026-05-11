@@ -1,5 +1,5 @@
 import random
-import pandas
+import pandas as pd
 
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
 ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
@@ -103,10 +103,12 @@ class Hand:
         
         """
         aces = 0
+        total = 0
         
         for card in self.cards:
             self.total += card.card_value()
-        # needs aces count pending on names used in card class 
+            if card.rank == "Ace":
+                aces += 1 
         while self.total > 21 and aces > 0:
             self.total -= 10
             aces -= 1
@@ -268,7 +270,7 @@ def blackjack_check():
     
     return True if total == 21 and len(Hand.cards) == 2 else False
 
-def player_turn():
+def player_turn(Player, Deck):
     """
     player turn
     
@@ -276,10 +278,17 @@ def player_turn():
         player: the player taking the turn
         deck: the current deck
         
-    author:
+    author:Stanton
     """
+    # player choice: hit or stand
+    while Player.get_total() < 21:
+        choice = input("Would you like to hit or stand?").lower()
+        
+        if choice == "hit":
+           drawn_card = (Deck.deal())
+           Player.add_card(drawn_card)
+           print("Drawn card:" + drawn_card) 
     
-    pass
 def dealer_turn():
     """
     run the dealers turn
