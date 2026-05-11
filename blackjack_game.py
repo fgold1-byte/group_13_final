@@ -280,6 +280,10 @@ def player_turn(Player, Deck):
         
     author:Stanton
     """
+    # main function might include original sdeal
+    if blackjack_check(Player):
+        print("Congrats! You got Blackjack!")
+        return
     # player choice: hit or stand
     while Player.get_total() < 21:
         choice = input("Would you like to hit or stand?").lower()
@@ -287,7 +291,28 @@ def player_turn(Player, Deck):
         if choice == "hit":
            drawn_card = (Deck.deal())
            Player.add_card(drawn_card)
-           print("Drawn card:" + drawn_card) 
+           print("Player chose to hit, drawn card:" + drawn_card) #change to fstring
+           
+           print("Your hand is:")
+           for card in Player.cards:
+               print(" ", card)
+               
+           print("New total: " + Player.get_total()) #Change to fstring
+           
+        elif choice == "stand":
+            print("Player chose to stand")
+            
+            print("Your hand is:")
+            for card in Player.cards:
+               print(" ", card)
+               
+            print("Total: " + Player.get_total()) #Change to fstring
+            break
+        else: 
+            print ("Invalid Input! please enter 'hit' or 'stand'.")
+    
+    if Player.get_total() > 21:
+        print("Hand busted!")
     
 def dealer_turn():
     """
