@@ -1,4 +1,4 @@
-from blackjack_game import Card, Deck, Hand
+from group_13_final.blackjack_game import Card, Deck, Hand
 #import card, deck, and hand classes from main code
 
 deck = Deck()
