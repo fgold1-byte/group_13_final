@@ -342,15 +342,17 @@ def dealer_turn(dealer, deck):
     author: Stanton
     """
     deck.shuffle() 
+    print ("DEALER'S TURN: ")
     
-    dealer.add_card(deck.deal())
-    dealer.add_card(deck.deal())  
+    while dealer.get_total() < 17:
+         
+         drawn_card = deck.deal()
+         dealer.add_card(drawn_card)
     
-    for card in dealer.cards:
-        print(" ", card)
-        
-    print(f"Dealer total: {dealer.get_total()}")            
+    print("The dealer is showing:")    
+    print(" ", dealer.cards[0])       
 
+    dealer_total = dealer.get_total() #stores dealer total
 def apply_club_discount(player, amount):
     """apply the clubs power-up if the players first card is a club, player is only charged 75% of their bet
     
