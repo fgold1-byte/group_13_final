@@ -12,7 +12,7 @@ starting_chips = 100
 
 class Card:
     
-    face_cards = ["Jack", "Queen", "King", "Ace"]
+    face_cards = ["Jack", "Queen", "King"]
     
     def __init__(self, suit, rank):
         self.suit = suit
@@ -391,11 +391,55 @@ def main():
     deck = Deck()
     deck.shuffle()
     
+    player = Player("Team13", starting_chips)
+    dealer = Player("Dealer", 0)
+    
     player.add_card(deck.deal())
     player.add_card(deck.deal())
     dealer.add_card(deck.deal())
     dealer.add_card(deck.deal()) 
     
+    print("==== SUITJACK ====")
+    print("\nYour hand:")
+    
+    for card in player.cards:
+        print(" ", card)
+        
+    print(f"Total: {player.get_total()}")
+    print(f"Power suit: {player.get_power_suit()}")
+    
+    # Spades power
+    reveal_hidden_card_spade(player, dealer, deck)
+    
+    bet_amount = float(input("\nEnter your bet amount: "))
+    
+    apply_club_discount(player, bet_amount)
+    
+    # Player turn
+    player_turn(player, deck)
+    
+    # Dealer turn
+    dealer_turn(dealer, deck)
+    
+    # Show dealer hand
+    print("\n Dealer hand:")
+    
+    for card in dealer.cards:
+        print(" ", card)
+        
+    print(f"Dealer total: {dealer.get_total()}")
+    
+    # Resovle outcome
+    bet = Bet(bet_amount)
+    
+    payout = bet.resolve_outcome(player, dealer)
+    
+    # add winning if player wins
+    if bet.result_status in ["Win, Push"]:
+        player.add_winnings(payout)
+        
+    # Final chip amount
+    print(f"\nFinal chip count: {player.chips}")
     
 if __name__ == "__main__":
     main()
