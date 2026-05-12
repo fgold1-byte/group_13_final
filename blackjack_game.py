@@ -112,7 +112,7 @@ class Hand:
             self.total -= 10
             aces -= 1
             
-        return self.total
+        return total
     
     def get_power_suit(self):
         """
@@ -290,13 +290,13 @@ def player_turn(Player, Deck):
         if choice == "hit":
            drawn_card = (Deck.deal())
            Player.add_card(drawn_card)
-           print("Player chose to hit, drawn card:" + drawn_card) #change to fstring
+           print(f"Player chose to hit, drawn card: {drawn_card}")
            
            print("Your hand is:")
            for card in Player.cards:
                print(" ", card)
                
-           print("New total: " + Player.get_total()) #Change to fstring
+           print(f"New total: {Player.get_total()}")
            
         elif choice == "stand":
             print("Player chose to stand")
@@ -305,7 +305,7 @@ def player_turn(Player, Deck):
             for card in Player.cards:
                print(" ", card)
                
-            print("Total: " + Player.get_total()) #Change to fstring
+            print(f"Total: {Player.get_total()}") 
             break
         else: 
             print ("Invalid Input! please enter 'hit' or 'stand'.")
@@ -313,7 +313,7 @@ def player_turn(Player, Deck):
     if Player.get_total() > 21:
         print("Hand busted!")
     
-def dealer_turn():
+def dealer_turn(dealer, deck):
     """
     run the dealers turn
     
@@ -321,9 +321,17 @@ def dealer_turn():
         dealer: the dealer
         deck: the currnt deck
         
-    author:
+    author: Stanton
     """
-    pass                
+    deck.shuffle() 
+    
+    dealer.add_card(deck.deal())
+    dealer.add_card(deck.deal())  
+    
+    for card in dealer.cards:
+        print(" ", card)
+        
+    print(f"Dealer total: {dealer.get_total()}")            
 
 def apply_club_discount(player, amount):
     """apply the clubs power-up if the players first card is a club, player is only charged 75% of their bet
