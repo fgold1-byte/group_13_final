@@ -1,5 +1,7 @@
 import random
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
 ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
@@ -112,7 +114,7 @@ class Hand:
             self.total -= 10
             aces -= 1
             
-        return self.total
+        return total
     
     def get_power_suit(self):
         """
@@ -144,12 +146,7 @@ class Player(Hand):
         self.name = name
         self.chips = chips
         self.next_round_stats = {}
-        """
-        test
-        1
-        2
-        3
-        """
+        
     def place_bet(self, amount: float):
         """
         deducts from the players chip balance, applying any club discount
@@ -171,17 +168,38 @@ class Player(Hand):
         return amount
     
     
-    def add_winnings():
+    def add_winnings(self, amount: float):
         """
         Adds chips to the players balance after a round
         
         args: amount(float): the number of chips to add
         
-        author: 
+        author: Isha Hussain
+        """
+        self.chips += amount
+        print( self.name, "won ", amount, "chips. Total chips: ", self.chips)
+        
+    def chip_graph(self):
+        """
+        Creates a line graph showing the players chip history by round
+        
+        Side effects: Displays and saves the chip history graph
+        
+        
+        author: Isha Hussain
         """
         
-    def pandas_graph():
-        s = pd.series()
+        # extracting 2 lists for x and y axes
+        rounds = list(self.next_round_stats.keys())
+        chips = list(self.next_round_stats.values())
+        
+        sns.lineplot(x=rounds, y=chips)
+        plt.title(self.name, "Chip History")
+        plt.xlabel("Rounds")
+        plt.ylabel("Chips")
+        plt.savefig(self.name, "chip history")
+        plt.show()
+        
 class Bet:
     """
     Store the current rounds wager and determind payout outcomes.
@@ -290,13 +308,13 @@ def player_turn(Player, Deck):
         if choice == "hit":
            drawn_card = (Deck.deal())
            Player.add_card(drawn_card)
-           print("Player chose to hit, drawn card:" + drawn_card) #change to fstring
+           print(f"Player chose to hit, drawn card: {drawn_card}")
            
            print("Your hand is:")
            for card in Player.cards:
                print(" ", card)
                
-           print("New total: " + Player.get_total()) #Change to fstring
+           print(f"New total: {Player.get_total()}")
            
         elif choice == "stand":
             print("Player chose to stand")
@@ -305,7 +323,7 @@ def player_turn(Player, Deck):
             for card in Player.cards:
                print(" ", card)
                
-            print("Total: " + Player.get_total()) #Change to fstring
+            print(f"Total: {Player.get_total()}") 
             break
         else: 
             print ("Invalid Input! please enter 'hit' or 'stand'.")
@@ -313,7 +331,7 @@ def player_turn(Player, Deck):
     if Player.get_total() > 21:
         print("Hand busted!")
     
-def dealer_turn():
+def dealer_turn(dealer, deck):
     """
     run the dealers turn
     
@@ -321,10 +339,20 @@ def dealer_turn():
         dealer: the dealer
         deck: the currnt deck
         
-    author:
+    author: Stanton
     """
-    pass                
+    deck.shuffle() 
+    print ("DEALER'S TURN: ")
+    
+    while dealer.get_total() < 17:
+         
+         drawn_card = deck.deal()
+         dealer.add_card(drawn_card)
+    
+    print("The dealer is showing:")    
+    print(" ", dealer.cards[0])       
 
+    dealer_total = dealer.get_total() #stores dealer total
 def apply_club_discount(player, amount):
     """apply the clubs power-up if the players first card is a club, player is only charged 75% of their bet
     
