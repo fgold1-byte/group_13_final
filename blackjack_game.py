@@ -388,4 +388,14 @@ def reveal_hidden_card_spade(player, dealer, deck):
         print(f"Spades rule: Dealers hidden card is {dealer.cards[1]}")
 
 def main():
-    pass
+    deck = Deck()
+    deck.shuffle()
+    
+    player.add_card(deck.deal())
+    player.add_card(deck.deal())
+    dealer.add_card(deck.deal())
+    dealer.add_card(deck.deal()) 
+    
+    
+if __name__ == "__main__":
+    main()
