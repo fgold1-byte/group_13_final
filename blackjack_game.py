@@ -1,10 +1,8 @@
-<<<<<<< Updated upstream
-class Deck:
-=======
 import random
-import pandas
+import pandas as pd
+
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
-ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
 starting_chips = 100
 
@@ -21,13 +19,12 @@ class Card:
     
     
     def card_value(self):
-        rank_values = {"Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight": 8, "Nine": 9, "Ten": 10, "Jack": 10, "Queen": 10, "King": 10, "Ace": 11}
+        rank_values = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "Jack": 10, "Queen": 10, "King": 10, "Ace": 11}
         
         return rank_values[self.rank]
         
     def __str__(self):
         return (f"{self.rank} of {self.suit}")
-        
     """
     Representing a singple playing card
     
@@ -105,10 +102,12 @@ class Hand:
         
         """
         aces = 0
+        total = 0
         
         for card in self.cards:
             self.total += card.card_value()
-        # needs aces count pending on names used in card class 
+            if card.rank == "Ace":
+                aces += 1 
         while self.total > 21 and aces > 0:
             self.total -= 10
             aces -= 1
@@ -270,7 +269,7 @@ def blackjack_check():
     
     return True if total == 21 and len(Hand.cards) == 2 else False
 
-def player_turn():
+def player_turn(Player, Deck):
     """
     player turn
     
@@ -278,10 +277,42 @@ def player_turn():
         player: the player taking the turn
         deck: the current deck
         
-    author:
+    author:Stanton
     """
+    # main function might include original sdeal
+    if blackjack_check(Player):
+        print("Congrats! You got Blackjack!")
+        return
+    # player choice: hit or stand
+    while Player.get_total() < 21:
+        choice = input("Would you like to hit or stand?").lower()
+        
+        if choice == "hit":
+           drawn_card = (Deck.deal())
+           Player.add_card(drawn_card)
+           print("Player chose to hit, drawn card:" + drawn_card) #change to fstring
+           
+           print("Your hand is:")
+           for card in Player.cards:
+               print(" ", card)
+               
+           print("New total: " + Player.get_total()) #Change to fstring
+           
+        elif choice == "stand":
+            print("Player chose to stand")
+            
+            print("Your hand is:")
+            for card in Player.cards:
+               print(" ", card)
+               
+            print("Total: " + Player.get_total()) #Change to fstring
+            break
+        else: 
+            print ("Invalid Input! please enter 'hit' or 'stand'.")
     
-    pass
+    if Player.get_total() > 21:
+        print("Hand busted!")
+    
 def dealer_turn():
     """
     run the dealers turn
@@ -294,29 +325,40 @@ def dealer_turn():
     """
     pass                
 
-def apply_club_discount():
-    """apply the clubs power-up if the players first card is a club
+def apply_club_discount(player, amount):
+    """apply the clubs power-up if the players first card is a club, player is only charged 75% of their bet
     
-    args: player: the player recives a discount
+    args:
+        player
+        amount
     
-    author:
+    author: Goldheim
     
     """
-    pass
+    if player.get_power_suit() == "Clubs":
+        deducted = amount * 0.75
+        player.chips -= deducted
+        print(f"Club rule: You bet {amount}, but only {deducted} was taken from your bank")
+        return amount
+    player.chips -= amount
+    return amount
 
-def reveal_hidden_card_spade():
+def reveal_hidden_card_spade(player, dealer, deck):
     """
     reveal dealers hidden card if the players first card is a spade
     
     args:
         player: the player
         dealer: the dealer
+        deck
         
-    author:
+    author: Goldheim
     """
     
-    pass
+    if player.get_power_suit() == "Spades":
+        while len(dealer.cards) < 2:
+            dealer.add_card(deck.deal())
+        print(f"Spades rule: Dealers hidden card is {dealer.cards[1]}")
 
 def main():
->>>>>>> Stashed changes
     pass
