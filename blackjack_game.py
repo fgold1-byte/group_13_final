@@ -107,9 +107,8 @@ class Hand:
         total = 0
         
         for card in self.cards:
-            self.total += card.card_value()
-            if card.rank == "Ace":
-                aces += 1 
+            total = sum(card.card_value() for card in self.cards)
+            aces = sum(1 for card in self.cards if card.rank == "Ace")
         while self.total > 21 and aces > 0:
             self.total -= 10
             aces -= 1
@@ -273,7 +272,7 @@ class Bet:
                 
         return self.payout
         
-def blackjack_check():
+def blackjack_check(Hand):
     """
     check weather a hand is a blackjack
     
