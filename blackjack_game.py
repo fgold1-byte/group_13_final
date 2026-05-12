@@ -1,5 +1,7 @@
 import random
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
 ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
@@ -145,12 +147,7 @@ class Player(Hand):
         self.name = name
         self.chips = chips
         self.next_round_stats = {}
-        """
-        test
-        1
-        2
-        3
-        """
+        
     def place_bet(self, amount: float):
         """
         deducts from the players chip balance, applying any club discount
@@ -172,17 +169,38 @@ class Player(Hand):
         return amount
     
     
-    def add_winnings():
+    def add_winnings(self, amount: float):
         """
         Adds chips to the players balance after a round
         
         args: amount(float): the number of chips to add
         
-        author: 
+        author: Isha Hussain
+        """
+        self.chips += amount
+        print( self.name, "won ", amount, "chips. Total chips: ", self.chips)
+        
+    def chip_graph(self):
+        """
+        Creates a line graph showing the players chip history by round
+        
+        Side effects: Displays and saves the chip history graph
+        
+        
+        author: Isha Hussain
         """
         
-    def pandas_graph():
-        s = pd.series()
+        # extracting 2 lists for x and y axes
+        rounds = list(self.next_round_stats.keys())
+        chips = list(self.next_round_stats.values())
+        
+        sns.lineplot(x=rounds, y=chips)
+        plt.title(self.name, "Chip History")
+        plt.xlabel("Rounds")
+        plt.ylabel("Chips")
+        plt.savefig(self.name, "chip history")
+        plt.show()
+        
 class Bet:
     """
     Store the current rounds wager and determind payout outcomes.
