@@ -326,17 +326,20 @@ def dealer_turn():
     """
     pass                
 
-def apply_club_discount():
+def apply_club_discount(player):
     """apply the clubs power-up if the players first card is a club
     
     args: player: the player recives a discount
     
-    author:
+    author: Wazihuddin
     
     """
-    pass
-
-def reveal_hidden_card_spade():
+    if player.get_power_suit == "Clubs":
+        print("♣ Clubs power activated! Next bet is discounted.")
+        return 0.75
+    
+    return 1.0
+def reveal_hidden_card_spade(player, dealer):
     """
     reveal dealers hidden card if the players first card is a spade
     
@@ -344,10 +347,17 @@ def reveal_hidden_card_spade():
         player: the player
         dealer: the dealer
         
-    author:
+    author: Wazihuddin
     """
-    
-    pass
+    if player.get_power_suit() == "Spades":
+        
+        # dealer must have at least 2 cards
+        if len(dealer.cards) > 1:
+            hidden_card = dealer.cards[1]
+            
+            print(f"♠ Spade power acticated! Dealer hidden card is: {hidden_card}")
+            
+            return hidden_card
 
 def main():
     pass
