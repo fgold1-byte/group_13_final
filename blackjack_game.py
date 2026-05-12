@@ -425,7 +425,7 @@ def main():
     print("\n Dealer hand:")
     
     for card in dealer.cards:
-        print(" ", card)
+       print(" ", card)
         
     print(f"Dealer total: {dealer.get_total()}")
     
@@ -435,7 +435,7 @@ def main():
     payout = bet.resolve_outcome(player, dealer)
     
     # add winning if player wins
-    if bet.result_status in ["Win, Push"]:
+    if bet.result_status in ["Win" , "Push"]:
         player.add_winnings(payout)
         
     # Final chip amount
