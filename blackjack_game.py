@@ -416,6 +416,9 @@ def main():
         print(f"Total: {player.get_total()}")
         print(f"Power suit: {player.get_power_suit()}")
         
+        print("\n Dealer is showing:")
+        print("",dealer.cards[0])
+        
         # Spades power
         reveal_hidden_card_spade(player, dealer, deck)
         
