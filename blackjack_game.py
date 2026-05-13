@@ -394,7 +394,7 @@ def main():
     
     play_again = "y"
     
-    while play_again.lower() == "y":
+    while play_again.lower() == "y" and player.chips > 0:
         
         deck = Deck()
         deck.shuffle()
@@ -449,16 +449,18 @@ def main():
         if bet.result_status in ["Win" , "Push"]:
             player.add_winnings(payout)
             
-        elif payout > 0:
-            player.add_winnings(payout)
             
         # show current chips 
         print(f"\nCurrent chips: {player.chips}")
-        round_number = len(player .next_round_stats) + 1
+        round_number = len(player.next_round_stats) + 1
         player.next_round_stats[round_number] = player.chips
             
         # Final chip amount
         print(f"\nFinal chip count: {player.chips}")
+        
+        if player.chips <= 0:
+            print("\nYou are out of chips! Game over.")
+            break
         
         # ask to play again 
         play_again = input("\nWould you like to play again? (y/n): ")
@@ -469,7 +471,7 @@ def main():
         
         #visualization
         
-        player.chip_graph()
+    player.chip_graph()
     
 if __name__ == "__main__":
     main()
