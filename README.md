@@ -14,3 +14,15 @@ Garvie writes about the game of Blackjack, including how its traditionally a Nor
 Pagat.com. (n.d.). Blackjack variants and side bets.
  https://www.pagat.com/banking/blackjack.html
  We consulted this site to research how traditional card games are modified with extra rules. This inspired our "suit power" system. By looking at how "insurance" and "side bets" work in real casinos, we developed the logic for the Hearts insurance and Diamond multiplier mechanics to ensure they felt balanced and fair for a single-player experience. 
+
+ ### Attribution Table
+ | method/ function | Primary Author | Technique claimed |
+ | ---------------- | -------------- | ----------------- | 
+ | Blackjack_jack   | Kayla S. | Conditional expression |
+ | get_total | Kayla S. | generator expressions |
+ | chip_graph | Isha H. | Visualizing Data|
+ | super().__init__()| Isha H.| super() |
+ | Place_bet | Fletcher G. | F-Strings containing expressions |
+ | __init__ line 143 | Fletcher G. | Optional parameters |
+ | add_card | Suhaib W. | Composition of two classes |
+ | Card.__str__() | Suhaib W. | magic methods |

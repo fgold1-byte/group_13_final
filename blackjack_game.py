@@ -140,7 +140,7 @@ class Player(Hand):
     
     Author: Isha and Goldheim
     """
-    def __init__(self, name: str, chips: int):
+    def __init__(self, name = "Player", chips = 100):
         super().__init__()
         self.name = name
         self.chips = chips
@@ -193,7 +193,7 @@ class Player(Hand):
         chips = list(self.next_round_stats.values())
         
         sns.lineplot(x=rounds, y=chips)
-        plt.title(self.name, "Chip History")
+        plt.title(f"{self.name} Chip History")
         plt.xlabel("Rounds")
         plt.ylabel("Chips")
         plt.savefig(self.name, "chip history")
@@ -440,6 +440,7 @@ def main():
         
     # Final chip amount
     print(f"\nFinal chip count: {player.chips}")
+    
     
 if __name__ == "__main__":
     main()
