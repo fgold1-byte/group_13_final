@@ -196,7 +196,7 @@ class Player(Hand):
         plt.title(f"{self.name} Chip History")
         plt.xlabel("Rounds")
         plt.ylabel("Chips")
-        plt.savefig(self.name, "chip history")
+        
         plt.show()
         
 class Bet:
@@ -388,59 +388,85 @@ def reveal_hidden_card_spade(player, dealer, deck):
         print(f"Spades rule: Dealers hidden card is {dealer.cards[1]}")
 
 def main():
-    deck = Deck()
-    deck.shuffle()
     
-    player = Player("Team13", starting_chips)
-    dealer = Player("Dealer", 0)
+    #create player
+    player = Player("player", 100)
     
-    player.add_card(deck.deal())
-    player.add_card(deck.deal())
-    dealer.add_card(deck.deal())
-    dealer.add_card(deck.deal()) 
+    play_again = "y"
     
-    print("==== SUITJACK ====")
-    print("\nYour hand:")
-    
-    for card in player.cards:
-        print(" ", card)
+    while play_again.lower() == "y":
         
-    print(f"Total: {player.get_total()}")
-    print(f"Power suit: {player.get_power_suit()}")
-    
-    # Spades power
-    reveal_hidden_card_spade(player, dealer, deck)
-    
-    bet_amount = float(input("\nEnter your bet amount: "))
-    
-    apply_club_discount(player, bet_amount)
-    
-    # Player turn
-    player_turn(player, deck)
-    
-    # Dealer turn
-    dealer_turn(dealer, deck)
-    
-    # Show dealer hand
-    print("\n Dealer hand:")
-    
-    for card in dealer.cards:
-       print(" ", card)
+        deck = Deck()
+        deck.shuffle()
         
-    print(f"Dealer total: {dealer.get_total()}")
-    
-    # Resovle outcome
-    bet = Bet(bet_amount)
-    
-    payout = bet.resolve_outcome(player, dealer)
-    
-    # add winning if player wins
-    if bet.result_status in ["Win" , "Push"]:
-        player.add_winnings(payout)
+        player = Player("Team13", starting_chips)
+        dealer = Player("Dealer", 0)
         
-    # Final chip amount
-    print(f"\nFinal chip count: {player.chips}")
-    
+        player.add_card(deck.deal())
+        player.add_card(deck.deal())
+        dealer.add_card(deck.deal())
+        dealer.add_card(deck.deal()) 
+        
+        print("==== SUITJACK ====")
+        print("\nYour hand:")
+        
+        for card in player.cards:
+            print(" ", card)
+            
+        print(f"Total: {player.get_total()}")
+        print(f"Power suit: {player.get_power_suit()}")
+        
+        # Spades power
+        reveal_hidden_card_spade(player, dealer, deck)
+        
+        bet_amount = float(input("\nEnter your bet amount: "))
+        
+        apply_club_discount(player, bet_amount)
+        
+        # Player turn
+        player_turn(player, deck)
+        
+        # Dealer turn
+        dealer_turn(dealer, deck)
+        
+        # Show dealer hand
+        print("\n Dealer hand:")
+        
+        for card in dealer.cards:
+            print(" ", card)
+            
+        print(f"Dealer total: {dealer.get_total()}")
+        
+        # Resovle outcome
+        bet = Bet(bet_amount)
+        
+        payout = bet.resolve_outcome(player, dealer)
+        
+        # add winning if player wins
+        if bet.result_status in ["Win" , "Push"]:
+            player.add_winnings(payout)
+            
+        elif payout > 0:
+            player.add_winnings(payout)
+            
+        # show current chips 
+        print(f"\nCurrent chips: {player.chips}")
+        round_number = len(player .next_round_stats) + 1
+        player.next_round_stats[round_number] = player.chips
+            
+        # Final chip amount
+        print(f"\nFinal chip count: {player.chips}")
+        
+        # ask to play again 
+        play_again = input("\nWould you like to play again? (y/n): ")
+        
+        if play_again.lower() == "n":
+            print("\nThanks for playing SuitJack! 👋")
+            print(f"You finished with {player.chips} chips.")
+        
+        #visualization
+        
+        player.chip_graph()
     
 if __name__ == "__main__":
     main()
