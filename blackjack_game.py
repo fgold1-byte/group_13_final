@@ -399,6 +399,7 @@ def main():
         deck = Deck()
         deck.shuffle()
 
+        player.cards = []
         dealer = Player("Dealer", 0)
         
         player.add_card(deck.deal())
