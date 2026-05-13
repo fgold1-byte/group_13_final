@@ -398,8 +398,7 @@ def main():
         
         deck = Deck()
         deck.shuffle()
-        
-        player = Player("Team13", starting_chips)
+
         dealer = Player("Dealer", 0)
         
         player.add_card(deck.deal())
