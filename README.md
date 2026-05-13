@@ -5,7 +5,8 @@ Suitjack is a blackjack inspired game with a twist: the suit of the first card y
 blackjack_game.py : Only file that hosts code for entire game. As of right now
 there are no further plans for other files to be added
 readme_final.md : Project documentation
-
+### HOW TO USE
+Simply run file and input vavid input when prompted. In order of bet (int) and player action (str). To see Chip history graph; when asked if player would like to play another round, input no or press enter and the graph will populate.
 ### Annotated Bibliography
 *class materials not cited* 
 Garvie, Duncan. “Blackjack - Card Game Rules.” Www.pagat.com, www.pagat.com/banking/blackjack.html.. 
